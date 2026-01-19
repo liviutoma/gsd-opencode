@@ -2,7 +2,7 @@
 name: gsd-check-todos
 description: List pending todos and select one to work on
 argument-hint: [area filter]
-allowed-tools:
+tools:
   - read
   - write
   - bash
@@ -19,8 +19,6 @@ Enables reviewing captured ideas and deciding what to work on next.
 <context>
 @.planning/STATE.md
 @.planning/ROADMAP.md
-
-Area filter: $ARGUMENTS
 </context>
 
 <process>
@@ -91,7 +89,7 @@ If invalid: "Invalid selection. Reply with a number (1-[N]) or `q` to exit."
 </step>
 
 <step name="load_context">
-Read the todo file completely. Display:
+read the todo file completely. Display:
 
 ```
 ## [title]

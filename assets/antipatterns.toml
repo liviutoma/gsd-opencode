@@ -5,11 +5,21 @@ folder = "./gsd-opencode/"
 file = "*.md"
 exclude_dir = ""
 forbidden_strings = [
+        "Claude",
         "Claude Code",
         "<sub>",
         'general-purpose',
         'subagent_type="Explore"',
         "~/.claude",
         "/gsd:",
+        "get-shit-done-cc",
+        "glittercowboy",
+        "AskUserQuestion",
+        "All arguments become",
         "/clear",
-]
+        "SlashCommand",
+        "TodoWrite",
+        "WebSearch",
+        "WebFetch",
+        "BashOutput"
+        ]

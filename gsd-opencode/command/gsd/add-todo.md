@@ -2,7 +2,7 @@
 name: gsd-add-todo
 description: Capture idea or task as todo from current conversation context
 argument-hint: [optional description]
-allowed-tools:
+tools:
   - read
   - write
   - bash
@@ -17,8 +17,6 @@ Enables "thought → capture → continue" flow without losing context or derail
 
 <context>
 @.planning/STATE.md
-
-Todo title: $ARGUMENTS
 </context>
 
 <process>
@@ -38,7 +36,7 @@ Note existing areas for consistency in infer_area step.
 </step>
 
 <step name="extract_content">
-**With arguments:** Use `$ARGUMENTS` as the title/focus.
+**With arguments:** Use as the title/focus.
 - `/gsd-add-todo Add auth token refresh` → title = "Add auth token refresh"
 
 **Without arguments:** Analyze recent conversation to extract:
@@ -77,7 +75,7 @@ grep -l -i "[key words from title]" .planning/todos/pending/*.md 2>/dev/null
 ```
 
 If potential duplicate found:
-1. Read the existing todo
+1. read the existing todo
 2. Compare scope
 
 If overlapping, use question:
@@ -97,7 +95,7 @@ date_prefix=$(date "+%Y-%m-%d")
 
 Generate slug from title (lowercase, hyphens, no special chars).
 
-Write to `.planning/todos/pending/${date_prefix}-${slug}.md`:
+write to `.planning/todos/pending/${date_prefix}-${slug}.md`:
 
 ```markdown
 ---

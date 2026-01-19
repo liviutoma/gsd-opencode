@@ -2,7 +2,7 @@
 name: gsd-remove-phase
 description: Remove a future phase from roadmap and renumber subsequent phases
 argument-hint: <phase-number>
-allowed-tools:
+tools:
   - read
   - write
   - bash
@@ -19,8 +19,6 @@ Output: Phase deleted, all subsequent phases renumbered, git commit as historica
 <execution_context>
 @.planning/ROADMAP.md
 @.planning/STATE.md
-
-Phase number: $ARGUMENTS
 </execution_context>
 
 <process>
@@ -54,7 +52,7 @@ Parse current phase number from STATE.md "Current Position" section.
 </step>
 
 <step name="validate_phase_exists">
-Verify that target phase exists in ROADMAP.md:
+Verify the target phase exists in ROADMAP.md:
 
 1. Search for `### Phase {target}:` heading
 2. If not found:
@@ -68,7 +66,7 @@ Verify that target phase exists in ROADMAP.md:
 </step>
 
 <step name="validate_future_phase">
-Verify that the phase is a future phase (not started):
+Verify the phase is a future phase (not started):
 
 1. Compare target phase to current phase from STATE.md
 2. Target must be > current phase number
@@ -108,7 +106,7 @@ Exit.
 </step>
 
 <step name="gather_phase_info">
-Collect information about phase being removed:
+Collect information about the phase being removed:
 
 1. Extract phase name from ROADMAP.md heading: `### Phase {target}: {Name}`
 2. Find phase directory: `.planning/phases/{target}-{slug}/`
@@ -149,7 +147,7 @@ Wait for confirmation.
 </step>
 
 <step name="delete_phase_directory">
-Delete target phase directory if it exists:
+Delete the target phase directory if it exists:
 
 ```bash
 if [ -d ".planning/phases/{target}-{slug}" ]; then
@@ -181,7 +179,7 @@ Also rename decimal phase directories:
 <step name="rename_files_in_directories">
 Rename plan files inside renumbered directories:
 
-For each renumbered directory, rename files that contain phase number:
+For each renumbered directory, rename files that contain the phase number:
 
 ```bash
 # Inside 17-dashboard (was 18-dashboard):
@@ -197,14 +195,14 @@ Also handle CONTEXT.md and DISCOVERY.md (these don't have phase prefixes, so no 
 <step name="update_roadmap">
 Update ROADMAP.md:
 
-1. **Remove phase section entirely:**
-   - Delete from `### Phase {target}:` to next phase heading (or section end)
+1. **Remove the phase section entirely:**
+   - Delete from `### Phase {target}:` to the next phase heading (or section end)
 
 2. **Remove from phase list:**
    - Delete line `- [ ] **Phase {target}: {Name}**` or similar
 
 3. **Remove from Progress table:**
-   - Delete row for Phase {target}
+   - Delete the row for Phase {target}
 
 4. **Renumber all subsequent phases:**
    - `### Phase 18:` → `### Phase 17:`
@@ -214,14 +212,14 @@ Update ROADMAP.md:
 
 5. **Update dependency references:**
    - `**Depends on:** Phase 18` → `**Depends on:** Phase 17`
-   - For phase that depended on removed phase:
+   - For the phase that depended on the removed phase:
      - `**Depends on:** Phase 17` (removed) → `**Depends on:** Phase 16`
 
 6. **Renumber decimal phases:**
    - `### Phase 17.1:` → `### Phase 16.1:` (if integer 17 removed)
    - Update all references consistently
 
-Write updated ROADMAP.md.
+write updated ROADMAP.md.
 </step>
 
 <step name="update_state">
@@ -233,16 +231,16 @@ Update STATE.md:
 2. **Recalculate progress percentage:**
    - New percentage based on completed plans / new total plans
 
-Do NOT add a "Roadmap Evolution" note - git commit is record.
+Do NOT add a "Roadmap Evolution" note - the git commit is the record.
 
-Write updated STATE.md.
+write updated STATE.md.
 </step>
 
 <step name="update_file_contents">
 Search for and update phase references inside plan files:
 
 ```bash
-# Find files that reference to old phase numbers
+# Find files that reference the old phase numbers
 grep -r "Phase 18" .planning/phases/17-*/ 2>/dev/null
 grep -r "Phase 19" .planning/phases/18-*/ 2>/dev/null
 # etc.
@@ -252,7 +250,7 @@ Update any internal references to reflect new numbering.
 </step>
 
 <step name="commit">
-Stage and commit removal:
+Stage and commit the removal:
 
 ```bash
 git add .planning/
@@ -297,7 +295,7 @@ Would you like to:
 - Don't remove completed phases (have SUMMARY.md files)
 - Don't remove current or past phases
 - Don't leave gaps in numbering - always renumber
-- Don't add "removed phase" notes to STATE.md - git commit is record
+- Don't add "removed phase" notes to STATE.md - git commit is the record
 - Don't ask about each decimal phase - just renumber them
 - Don't modify completed phase directories
 </anti_patterns>
@@ -310,7 +308,7 @@ Would you like to:
 - Simpler operation
 
 **No subsequent phases to renumber:**
-- Removing last phase (e.g., Phase 20 when that's the end)
+- Removing the last phase (e.g., Phase 20 when that's the end)
 - Just delete and update ROADMAP.md, no renumbering needed
 
 **Phase directory doesn't exist:**

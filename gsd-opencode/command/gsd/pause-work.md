@@ -1,7 +1,7 @@
 ---
 name: gsd-pause-work
 description: Create context handoff when pausing work mid-phase
-allowed-tools:
+tools:
   - read
   - write
   - bash
@@ -38,7 +38,7 @@ Ask user for clarifications if needed.
 </step>
 
 <step name="write">
-**Write handoff to `.planning/phases/XX-name/.continue-here.md`:**
+**write handoff to `.planning/phases/XX-name/.continue-here.md`:**
 
 ```markdown
 ---

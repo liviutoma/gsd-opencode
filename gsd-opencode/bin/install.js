@@ -20,7 +20,7 @@ const pkg = require("../package.json");
 const banner = `
 ${cyan}   ██████╗ ███████╗██████╗
   ██╔════╝ ██╔════╝██╔══██╗
-  ██║  ███╗█████╗  ██║  ██║
+  ██║  ███╗███████╗██║  ██║
   ██║   ██║╚════██║██║  ██║
   ╚██████╔╝███████║██████╔╝
    ╚═════╝ ╚══════╝╚═════╝${reset}
@@ -176,11 +176,21 @@ function install(isGlobal) {
   copyWithPathReplacement(gsdSrc, gsdDest, pathPrefix);
   console.log(`  ${green}✓${reset} Installed command/gsd`);
 
+  // Copy agents  with path replacement
+  const agentsSrc = path.join(src, "agents");
+  const agentsDest = path.join(opencodeDir, "agents");
+  copyWithPathReplacement(agentsSrc, agentsDest, pathPrefix);
+  console.log(`  ${green}✓${reset} Installed agents`);
+
   // Copy get-shit-done skill with path replacement
   const skillSrc = path.join(src, "get-shit-done");
   const skillDest = path.join(opencodeDir, "get-shit-done");
   copyWithPathReplacement(skillSrc, skillDest, pathPrefix);
   console.log(`  ${green}✓${reset} Installed get-shit-done`);
+
+  // Create VERSION file
+  fs.writeFileSync(path.join(skillDest, "VERSION"), `v${pkg.version}`);
+  console.log(`  ${green}✓${reset} Created VERSION file`);
 
   console.log(`
   ${green}Done!${reset} Run ${cyan}/gsd-help${reset} to get started.

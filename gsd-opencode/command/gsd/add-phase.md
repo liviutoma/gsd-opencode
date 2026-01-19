@@ -2,7 +2,7 @@
 name: gsd-add-phase
 description: Add phase to end of current milestone in roadmap
 argument-hint: <description>
-allowed-tools:
+tools:
   - read
   - write
   - bash
@@ -19,15 +19,13 @@ Purpose: Add planned work discovered during execution that belongs at the end of
 <execution_context>
 @.planning/ROADMAP.md
 @.planning/STATE.md
-
-Phase description: $ARGUMENTS
 </execution_context>
 
 <process>
 
 <step name="parse_arguments">
 Parse the command arguments:
-- All arguments `$ARGUMENTS` become the phase description
+- $ARGUMENTS the phase description
 - Example: `/gsd-add-phase Add authentication` → description = "Add authentication"
 - Example: `/gsd-add-phase Fix critical performance issues` → description = "Fix critical performance issues"
 
@@ -54,7 +52,7 @@ else
 fi
 ```
 
-Read roadmap content for parsing.
+read roadmap content for parsing.
 </step>
 
 <step name="find_current_milestone">
@@ -136,7 +134,7 @@ Add the new phase entry to the roadmap:
    [To be added during planning]
    ```
 
-3. Write updated roadmap back to file
+3. write updated roadmap back to file
 
 Preserve all other content exactly (formatting, spacing, other phases).
 </step>
@@ -144,7 +142,7 @@ Preserve all other content exactly (formatting, spacing, other phases).
 <step name="update_project_state">
 Update STATE.md to reflect the new phase:
 
-1. Read `.planning/STATE.md`
+1. read `.planning/STATE.md`
 2. Under "## Current Position" → "**Next Phase:**" add reference to new phase
 3. Under "## Accumulated Context" → "### Roadmap Evolution" add entry:
    ```

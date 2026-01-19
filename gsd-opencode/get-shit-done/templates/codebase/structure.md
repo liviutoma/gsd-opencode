@@ -125,7 +125,7 @@ Template for `.planning/codebase/STRUCTURE.md` - captures physical file organiza
 ```
 get-shit-done/
 ├── bin/                # Executable entry points
-├── command/           # Slash command definitions
+├── commands/           # Slash command definitions
 │   └── gsd/           # GSD-specific commands
 ├── get-shit-done/     # Skill resources
 │   ├── references/    # Principle documents
@@ -145,7 +145,7 @@ get-shit-done/
 - Key files: install.js - handles npx installation
 - Subdirectories: None
 
-**command/gsd/**
+**commands/gsd/**
 - Purpose: Slash command definitions for OpenCode
 - Contains: *.md files (one per command)
 - Key files: new-project.md, plan-phase.md, execute-plan.md
@@ -197,7 +197,7 @@ get-shit-done/
 
 **Directories:**
 - kebab-case: All directories
-- Plural for collections: templates/, command/, workflows/
+- Plural for collections: templates/, commands/, workflows/
 
 **Special Patterns:**
 - {command-name}.md: Slash command definition
@@ -206,8 +206,8 @@ get-shit-done/
 ## Where to Add New Code
 
 **New Slash Command:**
-- Primary code: `command/gsd/{command-name}.md`
-- Tests: `tests/command/{command-name}.test.js` (if testing implemented)
+- Primary code: `commands/gsd/{command-name}.md`
+- Tests: `tests/commands/{command-name}.test.js` (if testing implemented)
 - Documentation: Update `README.md` with new command
 
 **New Template:**
@@ -220,7 +220,7 @@ get-shit-done/
 
 **New Reference Document:**
 - Implementation: `get-shit-done/references/{name}.md`
-- Usage: Reference from command/workflows as needed
+- Usage: Reference from commands/workflows as needed
 
 **Utilities:**
 - No utilities yet (`install.js` is monolithic)
@@ -233,8 +233,8 @@ get-shit-done/
 - Source: Copied by bin/install.js during installation
 - Committed: Yes (source of truth)
 
-**command/**
-- Purpose: Slash commands installed to ~/.config/opencode/command/
+**commands/**
+- Purpose: Slash commands installed to ~/.config/opencode/commands/
 - Source: Copied by bin/install.js during installation
 - Committed: Yes (source of truth)
 

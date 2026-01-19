@@ -31,7 +31,7 @@ ls .planning/PROJECT.md 2>/dev/null && echo "Project file exists"
 
 <step name="load_state">
 
-Read and parse STATE.md, then PROJECT.md:
+read and parse STATE.md, then PROJECT.md:
 
 ```bash
 cat .planning/STATE.md
@@ -44,7 +44,7 @@ cat .planning/PROJECT.md
 - **Current Position**: Phase X of Y, Plan A of B, Status
 - **Progress**: Visual progress bar
 - **Recent Decisions**: Key decisions affecting current work
-- **Deferred Issues**: Open items awaiting attention
+- **Pending Todos**: Ideas captured during sessions
 - **Blockers/Concerns**: Issues carried forward
 - **Session Continuity**: Where we left off, any resume files
 
@@ -80,7 +80,7 @@ fi
 **If .continue-here file exists:**
 
 - This is a mid-plan resumption point
-- Read the file for specific resumption context
+- read the file for specific resumption context
 - Flag: "Found mid-plan checkpoint"
 
 **If PLAN without SUMMARY exists:**
@@ -91,7 +91,7 @@ fi
 **If interrupted agent found:**
 
 - Subagent was spawned but session ended before completion
-- Read agent-history.json for task details
+- read agent-history.json for task details
 - Flag: "Found interrupted agent"
   </step>
 
@@ -121,10 +121,10 @@ Present complete project status to user:
     Task: [task description from agent-history.json]
     Interrupted: [timestamp]
 
-    Resume with: /gsd-resume-task
+    Resume with: Task tool (resume parameter with agent ID)
 
-[If deferred issues exist:]
-📋 [N] deferred issues awaiting attention
+[If pending todos exist:]
+📋 [N] pending todos — /gsd-check-todos to review
 
 [If blockers exist:]
 ⚠️  Carried concerns:
@@ -141,7 +141,7 @@ Present complete project status to user:
 Based on project state, determine the most logical next action:
 
 **If interrupted agent exists:**
-→ Primary: Resume interrupted agent (/gsd-resume-task)
+→ Primary: Resume interrupted agent (Task tool with resume parameter)
 → Option: Start fresh (abandon agent work)
 
 **If .continue-here file exists:**
@@ -178,11 +178,9 @@ Present contextual options based on project state:
 What would you like to do?
 
 [Primary action based on state - e.g.:]
-1. Resume interrupted agent (/gsd-resume-task) [if interrupted agent found]
+1. Resume interrupted agent [if interrupted agent found]
    OR
-1. Resume from checkpoint (/gsd-execute-plan .planning/phases/XX-name/.continue-here-02-01.md)
-   OR
-1. Execute next plan (/gsd-execute-plan .planning/phases/XX-name/02-02-PLAN.md)
+1. Execute phase (/gsd-execute-phase {phase})
    OR
 1. Discuss Phase 3 context (/gsd-discuss-phase 3) [if CONTEXT.md missing]
    OR
@@ -190,7 +188,7 @@ What would you like to do?
 
 [Secondary options:]
 2. Review current phase status
-3. Check deferred issues ([N] open)
+3. Check pending todos ([N] pending)
 4. Review brief alignment
 5. Something else
 ```
@@ -217,7 +215,7 @@ Based on user selection, route to appropriate workflow:
 
   **{phase}-{plan}: [Plan Name]** — [objective from PLAN.md]
 
-  `/gsd-execute-plan [path]`
+  `/gsd-execute-phase {phase}`
 
   *`/new` first → fresh context window*
 
@@ -244,8 +242,8 @@ Based on user selection, route to appropriate workflow:
   ---
   ```
 - **Transition** → ./transition.md
-- **Review issues** → Read ISSUES.md, present summary
-- **Review alignment** → Read PROJECT.md, compare to current state
+- **Check todos** → read .planning/todos/pending/, present summary
+- **Review alignment** → read PROJECT.md, compare to current state
 - **Something else** → Ask what they need
 </step>
 
@@ -272,10 +270,10 @@ If STATE.md is missing but other artifacts exist:
 
 "STATE.md missing. Reconstructing from artifacts..."
 
-1. Read PROJECT.md → Extract "What This Is" and Core Value
-2. Read ROADMAP.md → Determine phases, find current position
-3. Scan \*-SUMMARY.md files → Extract decisions, issues, concerns
-4. Read ISSUES.md → Count deferred issues
+1. read PROJECT.md → Extract "What This Is" and Core Value
+2. read ROADMAP.md → Determine phases, find current position
+3. Scan \*-SUMMARY.md files → Extract decisions, concerns
+4. Count pending todos in .planning/todos/pending/
 5. Check for .continue-here files → Session continuity
 
 Reconstruct and write STATE.md, then proceed normally.

@@ -1,6 +1,6 @@
 <required_reading>
 
-**Read these files NOW:**
+**read these files NOW:**
 
 1. `.planning/STATE.md`
 2. `.planning/PROJECT.md`
@@ -165,7 +165,7 @@ The `completed/` subfolder pattern from create-meta-prompts handles archival.
 
 Evolve PROJECT.md to reflect learnings from completed phase.
 
-**Read phase summaries:**
+**read phase summaries:**
 
 ```bash
 cat .planning/phases/XX-current/*-SUMMARY.md
@@ -342,12 +342,6 @@ Review and update Accumulated Context section in STATE.md.
 - If still relevant for future: Keep with "Phase X" prefix
 - Add any new concerns from completed phase's summaries
 
-**Deferred Issues:**
-
-- Count open issues in ISSUES.md
-- Update count: "[N] open issues — see ISSUES.md"
-- If many accumulated, note: "Consider addressing ISS-XXX, ISS-YYY in next phase"
-
 **Example:**
 
 Before:
@@ -357,10 +351,6 @@ Before:
 
 - ⚠️ [Phase 1] Database schema not indexed for common queries
 - ⚠️ [Phase 2] WebSocket reconnection behavior on flaky networks unknown
-
-### Deferred Issues
-
-- ISS-001: Rate limiting on sync endpoint (Phase 2) — Medium
 ```
 
 After (if database indexing was addressed in Phase 2):
@@ -369,11 +359,6 @@ After (if database indexing was addressed in Phase 2):
 ### Blockers/Concerns
 
 - ⚠️ [Phase 2] WebSocket reconnection behavior on flaky networks unknown
-
-### Deferred Issues
-
-- ISS-001: Rate limiting on sync endpoint (Phase 2) — Medium
-- ISS-002: Better sync error messages (Phase 2) — Quick
 ```
 
 **Step complete when:**
@@ -382,7 +367,6 @@ After (if database indexing was addressed in Phase 2):
 - [ ] Resolved blockers removed from list
 - [ ] Unresolved blockers kept with phase prefix
 - [ ] New concerns from completed phase added
-- [ ] Deferred issues count updated
 
 </step>
 
@@ -410,9 +394,9 @@ Resume file: None
 
 **MANDATORY: Verify milestone status before presenting next steps.**
 
-**Step 1: Read ROADMAP.md and identify phases in current milestone**
+**Step 1: read ROADMAP.md and identify phases in current milestone**
 
-Read the ROADMAP.md file and extract:
+read the ROADMAP.md file and extract:
 1. Current phase number (the phase just transitioned from)
 2. All phase numbers in the current milestone section
 
@@ -435,7 +419,7 @@ State: "Current phase is {X}. Milestone has {N} phases (highest: {Y})."
 
 **Route A: More phases remain in milestone**
 
-Read ROADMAP.md to get the next phase's name and goal.
+read ROADMAP.md to get the next phase's name and goal.
 
 **If next phase exists:**
 
@@ -449,7 +433,7 @@ Next: Phase [X+1] — [Name]
 ⚡ Auto-continuing: Plan Phase [X+1] in detail
 ```
 
-Exit skill and invoke [removed - use /command syntax]("/gsd-plan-phase [X+1]")
+Exit skill and invoke "/gsd-plan-phase [X+1]"
 
 </if>
 
@@ -494,7 +478,7 @@ Phase {X} marked complete.
 ⚡ Auto-continuing: Complete milestone and archive
 ```
 
-Exit skill and invoke [removed - use /command syntax]("/gsd-complete-milestone {version}")
+Exit skill and invoke "/gsd-complete-milestone {version}"
 
 </if>
 
